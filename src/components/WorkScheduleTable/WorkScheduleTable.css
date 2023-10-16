@@ -1,0 +1,105 @@
+.table-section {
+    max-width: 1212px;
+    max-height: 678px;
+    margin: 0 auto;
+    padding: 24px 24px 128px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #2B2D35;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    background-color: #FFF;
+    border-radius: 10px;
+}
+
+.table__filters-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table__filter-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    padding: 0;
+    /*border-radius: 10px;
+    overflow: hidden;*/
+}
+
+.table__cell_name {
+    width: 300px;
+    height: 33px;
+    border: 1px solid #000;
+    padding-left: 12px;
+    cursor: pointer;
+}
+
+.table__cell_day {
+    width: 20px;
+    height: 26px;
+    border: 1px solid #000;
+    text-align: center;
+    padding: 4px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.table__cell_day_red {
+    color: #F0303F;
+}
+
+.table__cell_day_weekend {
+    background-color: rgba(240, 48, 63, 0.15);
+}
+
+.table__cell_day_vacation {
+    background-color: rgba(33, 158, 228, 0.75);
+}
+
+.table__cell_day_disease {
+    background-color: #FADA6B;
+}
+
+.table__cell_day_fired {
+    background-color: rgba(255, 79, 79, 0.75);
+}
+
+.table__cell_day_clicked {
+    border: 2px solid #F0303F;
+}
+
+.table__input {
+    width: 19px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    text-align: center;
+    line-height: 14px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.table__name-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.table__add-btn {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    padding: 0;
+    color: #308ADD;
+}
+
+.table__add-btn:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}

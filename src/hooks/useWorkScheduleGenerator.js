@@ -64,14 +64,16 @@ export const useWorkScheduleGenerator = () => {
           dayOfMonth: i,
           dayOfWeek: getDayOfWeek(i),
           dayValue: "1",
-          isWeekend: false
+          isWeekend: false,
+          isClicked: false
         }
         :
         {
           dayOfMonth: i,
           dayOfWeek: getDayOfWeek(i),
           dayValue: "н",
-          isWeekend: true
+          isWeekend: true,
+          isClicked: false
         });
     }
 

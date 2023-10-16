@@ -1,10 +1,9 @@
 import './App.css';
 import {useState} from "react";
-import {MonthSelector} from "./components/MonthSelector/MonthSelector";
 import {useWorkScheduleGenerator} from "./hooks/useWorkScheduleGenerator";
 import {WorkScheduleTable} from "./components/WorkScheduleTable/WorkScheduleTable";
-import {DayStatusPopup} from "./components/DayStatusPopup/DayStatusPopup";
 import {v1} from "uuid";
+import {Header} from "./components/Header/Header";
 
 function App() {
 
@@ -12,10 +11,10 @@ function App() {
 
   const [popupVisible, setPopupVisible] = useState(false);
 
-  const [employeeDataToUpdate, setEmployeeDataToUpdate] = useState({});
+  const [employeeDataToUpdate, setEmployeeDataToUpdate] = useState([]);
 
-  const onMonthSelectChange = (event) => {
-    setMonth(event.currentTarget.value);
+  const onMonthSelectChange = (value) => {
+    setMonth(value);
   }
 
   const addEmployee = () => {
@@ -31,57 +30,61 @@ function App() {
   }
 
   const setDataToUpdate = (employeeId, day) => {
-    setEmployeeDataToUpdate({id:employeeId, day:day});
+    setEmployeeDataToUpdate([...employeeDataToUpdate, {id: employeeId, day: day}]);
+    console.log('employeeDataToUpdate', employeeDataToUpdate);
   }
 
-   const changeDayValue = (dayValue) => {
-     const employeeToUpdate = employees.find(
-       employee => employee.id === employeeDataToUpdate.id
-     );
-     employeeToUpdate.schedule[employeeDataToUpdate.day.dayOfMonth - 1].dayValue = dayValue;
-     setEmployees([...employees]);
-     closePopup();
-   }
+  const changeDayValue = (dayValue) => {
+    employeeDataToUpdate.map(data => {
+      const employeeToUpdate = employees.find(
+        employee => employee.id === data.id
+      );
+      employeeToUpdate.schedule[data.day.dayOfMonth - 1].dayValue = dayValue;
+      employeeToUpdate.schedule[data.day.dayOfMonth - 1].isClicked = false;
+      setEmployees([...employees]);
+    })
+    setEmployeeDataToUpdate([]);
+    closePopup();
+  }
 
-   const changeEmployeeName = (newName, employeeId) => {
-     const employeeToUpdate = employees.find(employee => employee.id === employeeId);
-     employeeToUpdate.name = newName;
-     setEmployees([...employees]);
-     console.log('employees', employees);
-   }
+  const changeEmployeeName = (newName, employeeId) => {
+    const employeeToUpdate = employees.find(employee => employee.id === employeeId);
+    employeeToUpdate.name = newName;
+    setEmployees([...employees]);
+    console.log('employees', employees);
+  }
 
-   const deleteEmployee = (employeeId) => {
+  const deleteEmployee = (employeeId) => {
     const updatedEmployees = employees.filter(employee => employee.id !== employeeId);
     setEmployees([...updatedEmployees]);
-     console.log('employees', employees);
-   }
+    console.log('employees', employees);
+  }
 
   const openPopup = () => setPopupVisible(true);
   const closePopup = () => setPopupVisible(false);
 
   return <div className="App">
 
-    <MonthSelector
-      month={month}
-      onMonthSelectChange={onMonthSelectChange}
-    />
+    <div className="main-menu"/>
 
-    <WorkScheduleTable
-      defaultSchedule={defaultSchedule}
-      employees={employees}
-      addEmployee={addEmployee}
-      openPopup={openPopup}
-      setDataToUpdate={setDataToUpdate}
-      changeEmployeeName={changeEmployeeName}
-      deleteEmployee={deleteEmployee}
+    <div className="app-container">
+      <Header/>
 
-    />
-
-    <DayStatusPopup
-      popupVisible={popupVisible}
-      closePopup={closePopup}
-      changeDayValue={changeDayValue}
-    />
+      <WorkScheduleTable
+        month={month}
+        onMonthSelectChange={onMonthSelectChange}
+        defaultSchedule={defaultSchedule}
+        employees={employees}
+        addEmployee={addEmployee}
+        openPopup={openPopup}
+        setDataToUpdate={setDataToUpdate}
+        changeEmployeeName={changeEmployeeName}
+        deleteEmployee={deleteEmployee}
+        popupVisible={popupVisible}
+        closePopup={closePopup}
+        changeDayValue={changeDayValue}
+      />
+    </div>
 
   </div>;
 }
