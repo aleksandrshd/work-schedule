@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {v1} from "uuid";
+import _ from "lodash";
 
 export const useWorkScheduleGenerator = () => {
 
@@ -79,7 +80,8 @@ export const useWorkScheduleGenerator = () => {
 
   useEffect(() => {
     employees.map(employee => {
-      employee.schedule = [...defaultSchedule]
+      const deepDefaultScheduleCopy = _.cloneDeep(defaultSchedule);
+      employee.schedule = [...deepDefaultScheduleCopy];
     });
     setEmployees([...employees]);
   }, [defaultSchedule]);

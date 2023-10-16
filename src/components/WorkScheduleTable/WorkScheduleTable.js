@@ -35,7 +35,7 @@ export const WorkScheduleTable = ({defaultSchedule,
 
               const employeeSchedule = employee.schedule.map(day => {
 
-                  const onDayDoubleClick = () => {
+                  const onDayClick = () => {
                     setDataToUpdate(employee.id, day);
                     openPopup();
                   }
@@ -44,7 +44,7 @@ export const WorkScheduleTable = ({defaultSchedule,
                     <td
                       className={`table__cell_day ${day.isWeekend ? "table__cell_day_weekend" : ""}`}
                       key={day.dayOfMonth}
-                      onDoubleClick={onDayDoubleClick}
+                      onClick={onDayClick}
                     >{day.dayValue}</td>
                   )
                 }

@@ -38,12 +38,7 @@ function App() {
      const employeeToUpdate = employees.find(
        employee => employee.id === employeeDataToUpdate.id
      );
-     console.log(defaultSchedule);
-     debugger
      employeeToUpdate.schedule[employeeDataToUpdate.day.dayOfMonth - 1].dayValue = dayValue;
-     // происходит изменение defaultSchedule !!!
-     console.log(defaultSchedule);
-     debugger
      setEmployees([...employees]);
      closePopup();
    }
