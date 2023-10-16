@@ -1,15 +1,19 @@
 {
   "files": {
-    "main.css": "/work-schedule/static/css/main.4dbff528.css",
-    "main.js": "/work-schedule/static/js/main.0afcaaf4.js",
+    "main.css": "/work-schedule/static/css/main.50515e64.css",
+    "main.js": "/work-schedule/static/js/main.2deced59.js",
     "static/js/787.94f5c06e.chunk.js": "/work-schedule/static/js/787.94f5c06e.chunk.js",
+    "static/media/Stolzl-Regular.woff2": "/work-schedule/static/media/Stolzl-Regular.5cbda06fcf6155861c21.woff2",
+    "static/media/Stolzl-Bold.woff2": "/work-schedule/static/media/Stolzl-Bold.07df2154b1ecde96db59.woff2",
+    "static/media/Main Menu Collapsed.svg": "/work-schedule/static/media/Main Menu Collapsed.ba96e281452c897d10f1.svg",
+    "static/media/header-controls.svg": "/work-schedule/static/media/header-controls.85278ffebbcc5d22e475.svg",
     "index.html": "/work-schedule/index.html",
-    "main.4dbff528.css.map": "/work-schedule/static/css/main.4dbff528.css.map",
-    "main.0afcaaf4.js.map": "/work-schedule/static/js/main.0afcaaf4.js.map",
+    "main.50515e64.css.map": "/work-schedule/static/css/main.50515e64.css.map",
+    "main.2deced59.js.map": "/work-schedule/static/js/main.2deced59.js.map",
     "787.94f5c06e.chunk.js.map": "/work-schedule/static/js/787.94f5c06e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4dbff528.css",
-    "static/js/main.0afcaaf4.js"
+    "static/css/main.50515e64.css",
+    "static/js/main.2deced59.js"
   ]
 }
