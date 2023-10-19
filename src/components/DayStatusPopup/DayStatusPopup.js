@@ -2,7 +2,6 @@ export const DayStatusPopup = ({popupVisible, closePopup, changeDayValue}) => {
 
   const onClick = (event) => {
     event.preventDefault();
-    console.log(event.target.value);
     const dayValue = event.target.value;
     changeDayValue(dayValue);
   }

@@ -10,13 +10,15 @@ export const WorkScheduleTable = ({
                                     addEmployee,
                                     openPopup,
                                     setDataToUpdate,
+                                    removeDataToUpdate,
                                     changeEmployeeName,
                                     deleteEmployee,
                                     month,
                                     onMonthSelectChange,
                                     popupVisible,
                                     closePopup,
-                                    changeDayValue
+                                    changeDayValue,
+                                    employeeDataToUpdate
                                   }) => {
 
   const monthsArray = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
@@ -25,8 +27,18 @@ export const WorkScheduleTable = ({
     onMonthSelectChange(value);
   };
 
+  const onKeyUp = (event) => {
+    if (employeeDataToUpdate.length && (event.code === "ControlLeft" || event.code === "ControlLeft")) {
+      openPopup();
+    }
+  }
+
   return (
-    <section className="table-section">
+    <section
+      className="table-section"
+      tabIndex="0"
+      autoFocus={true}
+      onKeyUp={onKeyUp}>
 
       <div className="table__filters-container">
         <div className="table__filter-container">
@@ -111,15 +123,32 @@ export const WorkScheduleTable = ({
               const employeeSchedule = employee.schedule.map(day => {
 
                   const onDayClick = (event) => {
-                    day.isClicked = true;
-                    setDataToUpdate(employee.id, day);
-                    if (!event.ctrlKey) {
-                      openPopup();
+                    if (event.ctrlKey && event.altKey) {
+                      day.isClicked = false;
+                      removeDataToUpdate(employee.id, day);
+                    } else {
+                      day.isClicked = true;
+                      setDataToUpdate(employee.id, day);
+                      if (!event.ctrlKey) {
+                        openPopup();
+                      }
                     }
                   }
 
-                  const onKeyUp = () => {
-                    openPopup();
+                  const onMouseEnter = (event) => {
+                    if (event.altKey && event.ctrlKey) {
+                      day.isClicked = false;
+                      removeDataToUpdate(employee.id, day);
+                    } else if (event.ctrlKey) {
+                      day.isClicked = true;
+                      setDataToUpdate(employee.id, day);
+                    }
+                  }
+
+                  const onKeyUp = (event) => {
+                    if (employeeDataToUpdate.length && (event.code === "ControlLeft" || event.code === "ControlLeft")) {
+                      openPopup();
+                    }
                   }
 
                   return (
@@ -133,6 +162,7 @@ export const WorkScheduleTable = ({
                       `}
                       key={day.dayOfMonth}
                       onClick={onDayClick}
+                      onMouseEnter={onMouseEnter}
                     >
                       <input
                         className="table__input"

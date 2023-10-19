@@ -4,6 +4,7 @@ import {useWorkScheduleGenerator} from "./hooks/useWorkScheduleGenerator";
 import {WorkScheduleTable} from "./components/WorkScheduleTable/WorkScheduleTable";
 import {v1} from "uuid";
 import {Header} from "./components/Header/Header";
+import _ from "lodash";
 
 function App() {
 
@@ -18,20 +19,31 @@ function App() {
   }
 
   const addEmployee = () => {
+    const deepDefaultScheduleCopy = _.cloneDeep(defaultSchedule);
     const newEmployee =
       {
         id: v1(),
         name: "Новый сотрудник",
-        schedule: [...defaultSchedule]
+        schedule: [...deepDefaultScheduleCopy]
       };
     employees.push(newEmployee);
     setEmployees([...employees]);
-    console.log('employees', employees);
   }
 
   const setDataToUpdate = (employeeId, day) => {
-    setEmployeeDataToUpdate([...employeeDataToUpdate, {id: employeeId, day: day}]);
-    console.log('employeeDataToUpdate', employeeDataToUpdate);
+    if (!employeeDataToUpdate.find(data =>
+      data.id === employeeId && data.day === day)) {
+      setEmployeeDataToUpdate([...employeeDataToUpdate, {id: employeeId, day: day}]);
+    }
+  }
+
+  const removeDataToUpdate = (employeeId, day) => {
+    const index = employeeDataToUpdate.findIndex(data =>
+      data.id === employeeId && data.day === day);
+    if (index !== -1) {
+      employeeDataToUpdate.splice(index, 1);
+      setEmployeeDataToUpdate([...employeeDataToUpdate]);
+    }
   }
 
   const changeDayValue = (dayValue) => {
@@ -41,8 +53,8 @@ function App() {
       );
       employeeToUpdate.schedule[data.day.dayOfMonth - 1].dayValue = dayValue;
       employeeToUpdate.schedule[data.day.dayOfMonth - 1].isClicked = false;
-      setEmployees([...employees]);
-    })
+    });
+    setEmployees([...employees]);
     setEmployeeDataToUpdate([]);
     closePopup();
   }
@@ -51,13 +63,11 @@ function App() {
     const employeeToUpdate = employees.find(employee => employee.id === employeeId);
     employeeToUpdate.name = newName;
     setEmployees([...employees]);
-    console.log('employees', employees);
   }
 
   const deleteEmployee = (employeeId) => {
     const updatedEmployees = employees.filter(employee => employee.id !== employeeId);
     setEmployees([...updatedEmployees]);
-    console.log('employees', employees);
   }
 
   const openPopup = () => setPopupVisible(true);
@@ -78,11 +88,13 @@ function App() {
         addEmployee={addEmployee}
         openPopup={openPopup}
         setDataToUpdate={setDataToUpdate}
+        removeDataToUpdate={removeDataToUpdate}
         changeEmployeeName={changeEmployeeName}
         deleteEmployee={deleteEmployee}
         popupVisible={popupVisible}
         closePopup={closePopup}
         changeDayValue={changeDayValue}
+        employeeDataToUpdate={employeeDataToUpdate}
       />
     </div>
 
